@@ -2,6 +2,8 @@
 #include "ui_filecreator.h"
 #include <QDebug>
 #include <QFile>
+#include <QChar>
+#include <QFileInfo>
 
 
 filecreator::filecreator(QWidget *parent) :
@@ -29,28 +31,65 @@ void filecreator::on_startButton_clicked()
 
 
     QString size = ui->sizeInput->text();
-    QString name = ui->nameInput->text();
-
+    //QString name = ui->nameInput->text();
+    QString name = "C:\\Users\\user\\Desktop\\test.txt";
     int bytes = size.toInt();
 
     qDebug()<<"Name Entered: "<<name<<endl;
     qDebug()<<"Size Entered: "<<size<<endl;
     qDebug()<<"Converted Size: "<<bytes<<endl;
 
-    QString fileName = name;
-    QFile file(fileName);
 
-    qDebug()<<endl<<endl<<"File Name: "<<fileName;
+    QFile file(name);
+    QFileInfo fi(file);
+    qDebug()<<fi.absoluteFilePath();
+
+
+   // qDebug()<<endl<<endl<<"File Name: "<<fileName;
     if(file.open(QIODevice::ReadWrite)){
 
         QTextStream stream(&file);
+        QString fileContent = NULL;
+        QChar newCharacter;
 
+        ui->statusLabel->setText("Running");
+        ui->fileProgress->setRange(0, bytes);
+        ui->fileProgress->setValue(0);
         for(int i = 0; i < bytes; i++){
-            qDebug()<<"Loop "<<i<<endl;
+            qDebug()<<"Loop "<<i;
+            newCharacter = getRandChar();
+            qDebug()<<newCharacter;
+            fileContent.append(newCharacter);
+            double progress = (i/bytes)* 10;
 
-            stream<<"a";
+            ui->fileProgress->setValue(progress);
+
         }
+
+        //qDebug()<<"Final String: "<<fileContent;
+        stream<<fileContent;
+
+        //ui->statusLabel->setText("Idle");
     }
+    else{
+        qDebug()<<"Could not open file !!!";
+    }
+
+}
+
+char filecreator::getRandChar(){
+    int characterSet = 0;
+    int characterNumber = rand()%26;
+    int calculatedCharacter;
+
+    if(characterSet == 0){
+        calculatedCharacter = UPPERCASE + characterNumber;
+    }
+    else{
+        calculatedCharacter = LOWERCASE + characterNumber;
+    }
+
+    return (char)(characterNumber + 65);
 
 }
 

@@ -1,0 +1,4 @@
+#ifndef CREATIONTHREAD_H
+#define CREATIONTHREAD_H
+
+#endif // CREATIONTHREAD_H

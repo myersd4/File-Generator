@@ -13,8 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        filecreator.cpp
+        filecreator.cpp \
+    creationThread.cpp
 
-HEADERS  += filecreator.h
+HEADERS  += filecreator.h \
+    ../creationThread.h \
+    creationThread.h
 
 FORMS    += filecreator.ui
