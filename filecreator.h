@@ -1,8 +1,7 @@
 #ifndef FILECREATOR_H
 #define FILECREATOR_H
 
-#define UPPERCASE 65
-#define LOWERCASE 97
+
 
 #include <QMainWindow>
 
@@ -16,7 +15,6 @@ class filecreator : public QMainWindow
     
 public:
     explicit filecreator(QWidget *parent = 0);
-    char getRandChar();
     ~filecreator();
     
 private slots:

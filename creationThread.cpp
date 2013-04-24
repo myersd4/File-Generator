@@ -17,17 +17,19 @@ void creationThread::run(){
     //int bytes = size.toInt();
 
 
-    QString name = "C:\\Users\\user\\Desktop\\test.txt";
-    int bytes = 100000;
+
+
 
     qDebug()<<"Name Entered: "<<name<<endl;
-    //qDebug()<<"Size Entered: "<<size<<endl;
-    qDebug()<<"Converted Size: "<<bytes<<endl;
+    qDebug()<<"Size Entered: "<<size<<endl;
 
 
+     name = "C:\\Users\\user\\Desktop\\test.txt";
     QFile file(name);
     QFileInfo fi(file);
     qDebug()<<fi.absoluteFilePath();
+
+
 
 
    // qDebug()<<endl<<endl<<"File Name: "<<fileName;
@@ -40,16 +42,13 @@ void creationThread::run(){
 
 
         emit updateStatus("Running");
-        for(int i = 0; i < bytes; i++){
+        for(int i = 0; i < size; i++){
             //qDebug()<<"Loop "<<i;
-            emit updateProgress((i*100)/bytes);
-           // newCharacter = getRandChar();
-            newCharacter = 'A';
+            emit updateProgress((i*100)/size);
+            newCharacter = getRandChar();
             //qDebug()<<newCharacter;
             fileContent.append(newCharacter);
-            double progress = (i/bytes)* 10;
 
-            //ui->fileProgress->setValue(progress);
 
         }
         emit updateProgress(100);
@@ -63,5 +62,26 @@ void creationThread::run(){
     else{
         qDebug()<<"Could not open file !!!";
     }
+
+}
+
+void creationThread::setParameters(QString userName, int userSize){
+    name = userName;
+    size = userSize;
+}
+
+char creationThread::getRandChar(){
+    int characterSet = 0;
+    int characterNumber = rand()%26;
+    int calculatedCharacter;
+
+    if(characterSet == 0){
+        calculatedCharacter = UPPERCASE + characterNumber;
+    }
+    else{
+        calculatedCharacter = LOWERCASE + characterNumber;
+    }
+
+    return (char)(calculatedCharacter);
 
 }

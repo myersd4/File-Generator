@@ -29,6 +29,9 @@ void filecreator::on_startButton_clicked()
 
    creationThread t1;
 
+   int size = ui->sizeInput->text().toInt();
+
+   t1.setParameters(ui->nameInput->text(), size);
    connect(&t1, SIGNAL(updateProgress(int)), SLOT(setProgress(int)));
    connect(&t1, SIGNAL(updateStatus(QString)), SLOT(setStatus(QString)));
    t1.start();
@@ -48,19 +51,5 @@ void filecreator::setStatus(QString status){
     ui->statusLabel->setText(status);
 }
 
-char filecreator::getRandChar(){
-    int characterSet = 0;
-    int characterNumber = rand()%26;
-    int calculatedCharacter;
 
-    if(characterSet == 0){
-        calculatedCharacter = UPPERCASE + characterNumber;
-    }
-    else{
-        calculatedCharacter = LOWERCASE + characterNumber;
-    }
-
-    return (char)(characterNumber + 65);
-
-}
 
