@@ -28,61 +28,24 @@ void filecreator::on_startButton_clicked()
 {
 
    creationThread t1;
+
+   connect(&t1, SIGNAL(updateProgress(int)), SLOT(setProgress(int)));
+   connect(&t1, SIGNAL(updateStatus(QString)), SLOT(setStatus(QString)));
    t1.start();
 
    t1.wait();
 
 
-    /*QIntValidator *validator = new QIntValidator();
-    validator->setBottom(0);
-    ui->sizeInput->setValidator(validator);
+}
 
+void filecreator::setProgress(int value){
 
-    QString size = ui->sizeInput->text();
-    //QString name = ui->nameInput->text();
-    QString name = "C:\\Users\\user\\Desktop\\test.txt";
-    int bytes = size.toInt();
+    ui->fileProgress->setValue(value);
+}
 
-    qDebug()<<"Name Entered: "<<name<<endl;
-    qDebug()<<"Size Entered: "<<size<<endl;
-    qDebug()<<"Converted Size: "<<bytes<<endl;
+void filecreator::setStatus(QString status){
 
-
-    QFile file(name);
-    QFileInfo fi(file);
-    qDebug()<<fi.absoluteFilePath();
-
-
-   // qDebug()<<endl<<endl<<"File Name: "<<fileName;
-    if(file.open(QIODevice::ReadWrite)){
-
-        QTextStream stream(&file);
-        QString fileContent = NULL;
-        QChar newCharacter;
-
-        ui->statusLabel->setText("Running");
-        ui->fileProgress->setRange(0, bytes);
-        ui->fileProgress->setValue(0);
-        for(int i = 0; i < bytes; i++){
-            qDebug()<<"Loop "<<i;
-            newCharacter = getRandChar();
-            qDebug()<<newCharacter;
-            fileContent.append(newCharacter);
-            double progress = (i/bytes)* 10;
-
-            ui->fileProgress->setValue(progress);
-
-        }
-
-        //qDebug()<<"Final String: "<<fileContent;
-        stream<<fileContent;
-
-        //ui->statusLabel->setText("Idle");
-    }
-    else{
-        qDebug()<<"Could not open file !!!";
-    }*/
-
+    ui->statusLabel->setText(status);
 }
 
 char filecreator::getRandChar(){

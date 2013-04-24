@@ -25,6 +25,10 @@ private slots:
 
     void on_startButton_clicked();
 
+    void setProgress(int value);
+
+    void setStatus(QString status);
+
 
 private:
     Ui::filecreator *ui;

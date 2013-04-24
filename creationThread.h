@@ -11,7 +11,9 @@ class creationThread : public QThread{
 protected:
     void run();
 
-
+signals:
+    void updateProgress(int value);
+    void updateStatus(QString status);
 
 };
 

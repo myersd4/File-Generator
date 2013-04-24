@@ -18,7 +18,7 @@ void creationThread::run(){
 
 
     QString name = "C:\\Users\\user\\Desktop\\test.txt";
-    int bytes = 200;
+    int bytes = 200000;
 
     qDebug()<<"Name Entered: "<<name<<endl;
     //qDebug()<<"Size Entered: "<<size<<endl;
@@ -37,11 +37,12 @@ void creationThread::run(){
         QString fileContent = NULL;
         QChar newCharacter;
 
-       // ui->statusLabel->setText("Running");
-        //ui->fileProgress->setRange(0, bytes);
-        //ui->fileProgress->setValue(0);
+
+
+        emit updateStatus("Running");
         for(int i = 0; i < bytes; i++){
             qDebug()<<"Loop "<<i;
+            emit updateProgress((i*100)/bytes);
            // newCharacter = getRandChar();
             newCharacter = 'A';
             qDebug()<<newCharacter;
@@ -51,6 +52,7 @@ void creationThread::run(){
             //ui->fileProgress->setValue(progress);
 
         }
+        emit updateStatus("Idle");
 
         //qDebug()<<"Final String: "<<fileContent;
         stream<<fileContent;
