@@ -1,5 +1,6 @@
 #include "filecreator.h"
 #include "ui_filecreator.h"
+#include "creationThread.h"
 #include <QDebug>
 #include <QFile>
 #include <QChar>
@@ -25,7 +26,14 @@ void filecreator::on_quitButton_clicked()
 
 void filecreator::on_startButton_clicked()
 {
-    QIntValidator *validator = new QIntValidator();
+
+   creationThread t1;
+   t1.start();
+
+   t1.wait();
+
+
+    /*QIntValidator *validator = new QIntValidator();
     validator->setBottom(0);
     ui->sizeInput->setValidator(validator);
 
@@ -73,7 +81,7 @@ void filecreator::on_startButton_clicked()
     }
     else{
         qDebug()<<"Could not open file !!!";
-    }
+    }*/
 
 }
 
