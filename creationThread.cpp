@@ -2,7 +2,10 @@
 #include <QIntValidator>
 #include <QFile>
 #include <QFileInfo>
+#include <QCoreApplication>
 #include "creationThread.h"
+#include "filecreator.h"
+
 
 void creationThread::run(){
 
@@ -43,19 +46,22 @@ void creationThread::run(){
 
         emit updateStatus("Running");
         for(int i = 0; i < size; i++){
-            //qDebug()<<"Loop "<<i;
-            emit updateProgress((i*100)/size);
-            newCharacter = getRandChar();
-            //qDebug()<<newCharacter;
-            fileContent.append(newCharacter);
 
+           //bool test = filecreator::getStopFlag();
+            if(size % 10 == 0){
+                emit updateProgress((i*100)/size);
+            }
+            //newCharacter = getRandChar();
+            //fileContent.append(newCharacter);
+            stream<<getRandChar();
+           QCoreApplication::processEvents();
 
         }
         emit updateProgress(100);
         emit updateStatus("Idle");
 
         //qDebug()<<"Final String: "<<fileContent;
-        stream<<fileContent;
+        //stream<<fileContent;
 
         //ui->statusLabel->setText("Idle");
     }

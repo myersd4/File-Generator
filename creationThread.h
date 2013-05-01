@@ -1,3 +1,7 @@
+/*creationThread.h -  Header file for the thread that will create the file.
+ *Dan Myers
+ *CSC 402
+ */
 #ifndef CREATIONTHREAD_H
 #define CREATIONTHREAD_H
 
@@ -15,13 +19,13 @@ protected:
     void run();
 
 signals:
-    void updateProgress(int value);
-    void updateStatus(QString status);
+    void updateProgress(int value); //Update the progress bar.
+    void updateStatus(QString status); //Update the status displayed above the progess bar.
 
 private:
-    int size;
-    QString name;
-    char getRandChar();
+    int size;   //Size of the file to be created.
+    QString name;   //Name of the file being created.
+    char getRandChar(); //Returns a random character to be placed in the file.
 
 public:
     void setParameters(QString name, int size);

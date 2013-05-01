@@ -4,6 +4,7 @@
 
 
 #include <QMainWindow>
+#include "creationThread.h"
 
 namespace Ui {
 class filecreator;
@@ -27,9 +28,12 @@ private slots:
 
     void setStatus(QString status);
 
+    void on_stopButton_clicked();
 
 private:
     Ui::filecreator *ui;
+    bool stopBool;
+    //creationThread t1;
 };
 
 #endif // FILECREATOR_H
