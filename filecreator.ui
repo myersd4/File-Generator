@@ -15,6 +15,9 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="startButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -28,6 +31,9 @@
     </property>
    </widget>
    <widget class="QPushButton" name="stopButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -97,6 +103,9 @@
       <width>81</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="maxLength">
+     <number>9</number>
     </property>
    </widget>
    <widget class="QProgressBar" name="fileProgress">

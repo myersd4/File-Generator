@@ -6,11 +6,19 @@
 #include "creationThread.h"
 #include "filecreator.h"
 
+void creationThread::startCreation(){  //Start file creation.
+    createFile();
+}
 
-void creationThread::run(){
+void creationThread::stopCreation(){ //Stop creation when button is clicked.
+    stopFlag = true;
+}
+
+void creationThread::createFile(){
 
     QIntValidator *validator = new QIntValidator();
     validator->setBottom(0);
+    emit(toggleStart());
 
 
 
@@ -27,7 +35,7 @@ void creationThread::run(){
     qDebug()<<"Size Entered: "<<size<<endl;
 
 
-     name = "C:\\Users\\user\\Desktop\\test.txt";
+    //name = "C:\\Users\\user\\Desktop\\test.txt";
     QFile file(name);
     QFileInfo fi(file);
     qDebug()<<fi.absoluteFilePath();
@@ -35,35 +43,38 @@ void creationThread::run(){
 
 
 
-   // qDebug()<<endl<<endl<<"File Name: "<<fileName;
+    // qDebug()<<endl<<endl<<"File Name: "<<fileName;
     if(file.open(QIODevice::ReadWrite)){
 
         QTextStream stream(&file);
-        QString fileContent = NULL;
-        QChar newCharacter;
 
 
 
         emit updateStatus("Running");
         for(int i = 0; i < size; i++){
+            if(stopFlag){
+                break;
+            }
 
-           //bool test = filecreator::getStopFlag();
+
             if(size % 10 == 0){
                 emit updateProgress((i*100)/size);
             }
-            //newCharacter = getRandChar();
-            //fileContent.append(newCharacter);
+
             stream<<getRandChar();
-           QCoreApplication::processEvents();
+            QCoreApplication::processEvents();
 
         }
-        emit updateProgress(100);
+
+        if(!stopFlag){
+            emit updateProgress(100);
+        }
+
+        emit (toggleStart());
+        emit (disableStop());
         emit updateStatus("Idle");
+        emit(finished());
 
-        //qDebug()<<"Final String: "<<fileContent;
-        //stream<<fileContent;
-
-        //ui->statusLabel->setText("Idle");
     }
     else{
         qDebug()<<"Could not open file !!!";

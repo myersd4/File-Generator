@@ -1,0 +1,5 @@
+Thread Design:
+CreationThread is a class that extends QObject and holds all of the logic necessary to create the file specified by the user.  To Achieve the threading I created an instance of creationThread and QThread and moved the creationThread instance into the QThread instance.  Using slots and signals I was then able to connect the start() command of the thread to the method to make the file in creationThread.  I did this instead of extending QThread because my gui was initially unresponsive even after adding threading to the applicaiton.  After doing some research I found a blog from a developer for the qt project that stated the documentation needs to be updated and instantiating the object and thread independently would make the program more responsive.  
+
+compilation:
+I was unable to produce a valid executable file.  After running cmake and qmake and attempting to compile I kept getting a message about a missing entry point in libstdc++-6.dll.  I attempted to use two different versions of this file to run the program with no luck.  In the end the only way I could get the program to run was to import it into QT Creator and run it from there. 
